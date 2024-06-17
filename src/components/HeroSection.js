@@ -1,6 +1,5 @@
 "use client";
 
-
 import React, { Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useTexture } from '@react-three/drei';
@@ -48,7 +47,7 @@ const Scene = ({ scrollFactor }) => {
       {Array.from({ length: 8 }).map((_, index) => (
         <CarouselImage key={index} texture={texture} angle={(index / 8) * Math.PI * 2} radius={2.5} index={index} scrollFactor={scrollFactor} />
       ))}
-      <OrbitControls />
+      <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
     </>
   );
 };
@@ -61,21 +60,16 @@ const HeroSection = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       setScrollFactor(window.scrollY / maxScroll);
     };
-    const handleWheel = (e) => {
-      e.preventDefault(); // Prevent default zoom behavior
-      handleScroll();
-    };
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('wheel', handleWheel, { passive: false }); // Add passive: false to ensure preventDefault works
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleWheel);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <div style={{ height: '200vh'}}>
-      <Canvas style={{ display: 'block', position: 'fixed', top: 0, left: 0}}>
+    <div style={{ height: '200vh' }}>
+      <Canvas style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
+  onCreated={({ gl }) => {
+    gl.setClearColor('#71A274');
+  }}      >
         <Scene scrollFactor={scrollFactor} />
       </Canvas>
     </div>
