@@ -46,8 +46,8 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
 const Scene = ({ scrollFactor }) => {
   const logoRef = useRef();
-  const { scene } = useGLTF('\logo.gltf');
-  const texture = useTexture('\image2.jpg');
+  const { scene } = useGLTF('/logo.gltf');
+  const texture = useTexture('/image2.jpg');
   const { camera } = useThree();
 
   useEffect(() => {
@@ -104,7 +104,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div style={{ height: '200vh', overflowY: 'scroll' }}>
+    <div style={{ height: '200vh', overflowY: 'scroll' }} onScroll={(e) => handleScroll(e)}>
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
         onCreated={({ gl }) => {
@@ -113,7 +113,6 @@ const HeroSection = () => {
       >
         <Scene scrollFactor={scrollFactor} />
       </Canvas>
-      <div style={{ height: '100vh', width:'90vw' }}></div>
       <Image
         src={Left}
         alt="Left Bottom"
