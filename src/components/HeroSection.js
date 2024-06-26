@@ -50,8 +50,8 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
 const Scene = ({ scrollFactor }) => {
   const logoRef = useRef();
-  const { scene } = useGLTF('/logo.gltf');
-  const texture = useTexture('/image2.jpg');
+  const { scene } = useGLTF('\logo.gltf');
+  const texture = useTexture('\image2.jpg');
   const { camera } = useThree();
 
   useEffect(() => {
