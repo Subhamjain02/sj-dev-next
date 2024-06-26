@@ -1,0 +1,68 @@
+*{
+    font-family: "Playfair Display", serif;
+
+}
+
+body {
+  margin: 0;
+  height: 200vh;
+  font-size: 1.1rem;
+}
+canvas {
+  display: block;
+  position: fixed;
+  background-color: #71A274;
+}
+
+nav{
+    background-color: #71A274;
+}
+
+.explore{
+    width: 11rem;
+    background-color: #263A99;
+}
+.navbar-brand{
+    color: #EBE2BE !important;
+}
+.nav-link{
+    color: black;
+}
+
+
+.dropdown-menu{
+    background-color: #263A99 !important;
+
+}
+
+.dropdown-item{
+    color: white;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 2px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  @media only screen and (max-width: 600px) {
+
+    .explore{
+      width: 8rem;
+    }
+  }
