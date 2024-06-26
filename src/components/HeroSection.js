@@ -3,19 +3,18 @@
 import React, { Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF, useTexture } from '@react-three/drei';
-import Image from 'next/image'
-import Left from '../../public/left.svg'
-import Right from '../../public/right.svg'
-import './HeroSection.css'
+import Image from 'next/image';
+import Left from '../../public/left.svg';
+import Right from '../../public/right.svg';
+import './HeroSection.css';
 
 const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount }) => {
   const ref = useRef();
-  
+
   const adjustImageProperties = (image, transitionFactor) => {
-    // Apply opacity smoothly
     const opacityFactor = 1.3 * transitionFactor;
     image.material.opacity = opacityFactor;
-    image.material.transparent = true; // Ensure transparency is enabled
+    image.material.transparent = true;
   };
 
   useFrame(() => {
@@ -25,16 +24,13 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
     ref.current.position.set(x, y, z);
 
-    // Calculate visibility based on scroll factor
-    const startAppear = (imageCount - 1 - index) / imageCount; // When the image starts to appear
-    const endAppear = (imageCount - index - 0.5) / imageCount; // When the image is fully visible
+    const startAppear = (imageCount - 1 - index) / imageCount;
+    const endAppear = (imageCount - index - 0.5) / imageCount;
     const transitionFactor = Math.max(0, Math.min(1, (scrollFactor - startAppear) / (endAppear - startAppear)));
 
-    // Calculate visibility based on angle
     const cameraAngle = Math.atan2(y, z - 1);
     const angleFactor = 1 - Math.abs(cameraAngle / (Math.PI / 2));
 
-    // Combine both factors
     const finalTransitionFactor = transitionFactor * angleFactor;
 
     adjustImageProperties(ref.current, finalTransitionFactor);
@@ -50,8 +46,8 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
 const Scene = ({ scrollFactor }) => {
   const logoRef = useRef();
-  const { scene } = useGLTF('\logo.gltf');
-  const texture = useTexture('\image2.jpg');
+  const { scene } = useGLTF('/logo.gltf');
+  const texture = useTexture('/image2.jpg');
   const { camera } = useThree();
 
   useEffect(() => {
@@ -100,17 +96,15 @@ const HeroSection = () => {
       setScrollFactor(window.scrollY / maxScroll);
     };
 
-    window.addEventListener('scroll', handleScroll);
-
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-
     };
   }, []);
 
   return (
-    <div style={{ height: '200vh' }}>
+    <div style={{ height: '200vh', overflowY: 'scroll' }}>
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
         onCreated={({ gl }) => {
@@ -119,19 +113,19 @@ const HeroSection = () => {
       >
         <Scene scrollFactor={scrollFactor} />
       </Canvas>
-      <Image 
+      <Image
         src={Left}
-        alt="Left Bottom" 
-        style={{ position: 'fixed', bottom: '0', left: '0', width: '15rem', height:'17rem'  }}
-        className='left'
-        priority={true} // {false} | {true}
+        alt="Left Bottom"
+        style={{ position: 'fixed', bottom: '0', left: '0', width: '15rem', height: '17rem' }}
+        className="left"
+        priority={true}
       />
-      <Image 
+      <Image
         src={Right}
-        alt="Right Bottom" 
-        style={{ position: 'fixed', bottom: '0', right: '0', width: '15rem', height:'auto'  }}
-        className='right'
-        priority={true} // {false} | {true}
+        alt="Right Bottom"
+        style={{ position: 'fixed', bottom: '0', right: '0', width: '15rem', height: 'auto' }}
+        className="right"
+        priority={true}
       />
     </div>
   );
