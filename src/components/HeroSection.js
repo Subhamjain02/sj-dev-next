@@ -82,7 +82,7 @@ const Scene = ({ scrollFactor }) => {
           imageCount={8}
         />
       ))}
-      <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
+      <OrbitControls enableZoom={false} enableRotate={true} enablePan={false} />
     </>
   );
 };
