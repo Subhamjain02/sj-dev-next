@@ -102,17 +102,10 @@ const HeroSection = () => {
 
     window.addEventListener('scroll', handleScroll);
 
-    const preventDefaultTouch = (event) => {
-      event.preventDefault();
-    };
-
-    document.addEventListener('touchstart', preventDefaultTouch, { passive: false });
-    document.addEventListener('touchmove', preventDefaultTouch, { passive: false });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('touchstart', preventDefaultTouch);
-      document.removeEventListener('touchmove', preventDefaultTouch);
+
     };
   }, []);
 
@@ -131,13 +124,14 @@ const HeroSection = () => {
         alt="Left Bottom" 
         style={{ position: 'fixed', bottom: '0', left: '0', width: '15rem', height:'17rem'  }}
         className='left'
-
+        priority={true} // {false} | {true}
       />
       <Image 
         src={Right}
         alt="Right Bottom" 
-        style={{ position: 'fixed', bottom: '0', right: '0', width: '15rem'  }}
+        style={{ position: 'fixed', bottom: '0', right: '0', width: '15rem', height:'auto'  }}
         className='right'
+        priority={true} // {false} | {true}
       />
     </div>
   );
