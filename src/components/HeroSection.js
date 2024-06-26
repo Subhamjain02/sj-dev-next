@@ -104,7 +104,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div style={{ height: '200vh', overflowY: 'scroll', width:'100vw' }}>
+    <div style={{ height: '200vh', overflowY: 'scroll' }}>
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
         onCreated={({ gl }) => {
@@ -113,6 +113,7 @@ const HeroSection = () => {
       >
         <Scene scrollFactor={scrollFactor} />
       </Canvas>
+      <div style={{ height: '100vh', width:'90vw' }}></div>
       <Image
         src={Left}
         alt="Left Bottom"
