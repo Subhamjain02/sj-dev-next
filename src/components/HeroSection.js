@@ -104,9 +104,10 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div style={{ height: '200vh', overflowY: 'scroll' }} onScroll={(e) => handleScroll(e)}>
+    <div style={{ height: '200vh', overflowY: 'scroll' }} >
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
+        onScroll={(e) => handleScroll(e)}
         onCreated={({ gl }) => {
           gl.setClearColor('#71A274');
         }}
