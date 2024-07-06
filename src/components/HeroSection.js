@@ -6,9 +6,10 @@ import { OrbitControls, useGLTF, useTexture } from '@react-three/drei';
 import Image from 'next/image';
 import Left from '../../public/left.svg';
 import Right from '../../public/right.svg';
+import Podium from '../../public/podium.png';
 import './HeroSection.css';
 
-const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount }) => {
+const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount, url }) => {
   const ref = useRef();
 
   const adjustImageProperties = (image, transitionFactor) => {
@@ -17,10 +18,16 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
     image.material.transparent = true;
   };
 
+  const handleClick = () => {
+    window.open(url, '_blank');
+  };
+
+
+
   useFrame(() => {
     const x = radius * Math.cos((scrollFactor + index * (1 / imageCount)) * Math.PI * 2);
     const z = radius * Math.sin((scrollFactor + index * (1 / imageCount)) * Math.PI * 2);
-    const y = -0.6 * Math.sin((scrollFactor + index * (1 / imageCount)) * Math.PI * 2);
+    const y = -0.5 * Math.sin((scrollFactor + index * (1 / imageCount)) * Math.PI * 2);
 
     ref.current.position.set(x, y, z);
 
@@ -34,10 +41,12 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
     const finalTransitionFactor = transitionFactor * angleFactor;
 
     adjustImageProperties(ref.current, finalTransitionFactor);
+    // ref.current.renderOrder = ref.current.position.z;
+
   });
 
   return (
-    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]}>
+    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} onPointerDown={handleClick}>
       <planeGeometry args={[1.3, 1]} />
       <meshBasicMaterial map={texture} transparent={true} opacity={0} />
     </mesh>
@@ -46,12 +55,37 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
 const Scene = ({ scrollFactor }) => {
   const logoRef = useRef();
-  const { scene } = useGLTF('\logo.gltf');
-  const texture = useTexture('\image2.jpg');
+  const { scene } = useGLTF('/logo.gltf');
+
+  // last iamge will apppear first i.e, image8.jpg
+  const textures = useTexture(['/image1.jpg', '/image2.jpg', '/image3.jpg', '/image4.jpg', '/image5.jpg', '/image6.jpg', '/image7.jpg', '/image8.jpg']); 
+  const urls = [
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55', // last image on the caraousel
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://www.youtube.com/watch?v=4DVDFxiZKCg' // 1st image on the caraousel
+  ];
   const { camera } = useThree();
+
+  const adjustLogoScale = () => {
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 500);
+    if (logoRef.current) {
+      logoRef.current.scale.set(scaleFactor * 30, scaleFactor * 30, scaleFactor * 30);
+    }
+  };
 
   useEffect(() => {
     camera.position.z = 4.5;
+    adjustLogoScale();
+    window.addEventListener('resize', adjustLogoScale);
+
+    return () => {
+      window.removeEventListener('resize', adjustLogoScale);
+    };
   }, [camera]);
 
   useFrame(() => {
@@ -65,9 +99,9 @@ const Scene = ({ scrollFactor }) => {
       <ambientLight intensity={0.2} />
       <directionalLight intensity={3.5} position={[5, 10, 7.5]} />
       <Suspense fallback={null}>
-        <primitive object={scene} ref={logoRef} position={[0, 0, 0]} scale={[40, 40, 40]} />
+        <primitive object={scene} ref={logoRef} position={[0, 0, 0]} scale={[30, 30, 30]} />
       </Suspense>
-      {Array.from({ length: 8 }).map((_, index) => (
+      {textures.map((texture, index) => (
         <CarouselImage
           key={index}
           texture={texture}
@@ -76,6 +110,7 @@ const Scene = ({ scrollFactor }) => {
           index={index}
           scrollFactor={scrollFactor}
           imageCount={8}
+          url={urls[index]}
         />
       ))}
       <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
@@ -84,7 +119,7 @@ const Scene = ({ scrollFactor }) => {
 };
 
 const getResponsiveRadius = () => {
-  return Math.max(2, Math.min((window.innerWidth / 1700) * 3));
+  return Math.max(2, Math.min((window.innerWidth / 1700) * 2.9));
 };
 
 const HeroSection = () => {
@@ -93,7 +128,7 @@ const HeroSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollFactor(window.scrollY / maxScroll);
+      setScrollFactor(window.scrollY / (maxScroll * 0.8));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -104,17 +139,14 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div style={{ height: '200vh', overflowY: 'scroll' }} >
+    <div style={{ height: '200vh', overflowY: 'scroll', backgroundImage: 'url("/path/to/background.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
         onScroll={(e) => handleScroll(e)}
-        onCreated={({ gl }) => {
-          gl.setClearColor('#71A274');
-        }}
       >
         <Scene scrollFactor={scrollFactor} />
       </Canvas>
-      <Image
+      {/* <Image
         src={Left}
         alt="Left Bottom"
         style={{ position: 'fixed', bottom: '0', left: '0', width: '15rem', height: '17rem' }}
@@ -127,7 +159,17 @@ const HeroSection = () => {
         style={{ position: 'fixed', bottom: '0', right: '0', width: '15rem', height: 'auto' }}
         className="right"
         priority={true}
+      /> */}
+      <Image
+        src={Podium}
+        alt="Podium"
+        className="position-fixed bottom-0 start-50 translate-middle-x"
+        priority={true}
       />
+      <div className="carousel-text text-white ms-4">
+        <h4 >WELCOME TO SJ</h4>
+        <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
+      </div>
     </div>
   );
 };

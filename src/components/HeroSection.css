@@ -1,3 +1,13 @@
+/* body,html {
+    background: url('/bg.jpeg') no-repeat center center fixed;
+    } */
+
+    .carousel-text{
+        position: fixed;
+        top: 50%;
+        right: 50%;
+    }
+    
 @media only screen and (max-width: 800px) {
 
     .left{
@@ -9,6 +19,8 @@
         height: 14rem !important;
         margin-right: -10px;
     }
+    
+   
   }
 @media only screen and (max-width: 400px) {
 
@@ -20,5 +32,11 @@
         width: 8rem !important;
         height: 12rem !important;
         margin-right: -10px
+    }
+    h4{
+        font-size: 1.2rem !important;
+    }
+    .para{
+        font-size: 0.8rem;
     }
   }
