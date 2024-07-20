@@ -46,19 +46,7 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
   });
 
   return (
-    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} 
-      // onPointerDown={(e) => {
-      //   if (e.pointerType === 'touch') {
-      //     setIsScrolling(true);
-      //   }
-      // }}
-      // onPointerUp={(e) => {
-      //   if (e.pointerType === 'touch' && !isScrolling) {
-      //     handleClick();
-      //   }
-      //   setIsScrolling(false);
-      // }}
-    >
+    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} onPointerDown={handleClick}>
       <planeGeometry args={[1.3, 1]} />
       <meshBasicMaterial map={texture} transparent={true} opacity={0} />
     </mesh>
@@ -122,7 +110,7 @@ const Scene = ({ scrollFactor }) => {
           index={index}
           scrollFactor={scrollFactor}
           imageCount={8}
-          url={urls[index]}
+          // url={urls[index]}
         />
       ))}
       <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
@@ -178,7 +166,7 @@ const HeroSection = () => {
         className="position-fixed bottom-0 start-50 translate-middle-x"
         priority={true}
       />
-      <div className="carousel-text text-white ms-4 text-wrap">
+      <div className="carousel-text text-white ms-4">
         <h4 >WELCOME TO SJ</h4>
         <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
       </div>
