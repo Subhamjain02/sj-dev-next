@@ -47,17 +47,17 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
   return (
     <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} 
-      onPointerDown={(e) => {
-        if (e.pointerType === 'touch') {
-          setIsScrolling(true);
-        }
-      }}
-      onPointerUp={(e) => {
-        if (e.pointerType === 'touch' && !isScrolling) {
-          handleClick();
-        }
-        setIsScrolling(false);
-      }}
+      // onPointerDown={(e) => {
+      //   if (e.pointerType === 'touch') {
+      //     setIsScrolling(true);
+      //   }
+      // }}
+      // onPointerUp={(e) => {
+      //   if (e.pointerType === 'touch' && !isScrolling) {
+      //     handleClick();
+      //   }
+      //   setIsScrolling(false);
+      // }}
     >
       <planeGeometry args={[1.3, 1]} />
       <meshBasicMaterial map={texture} transparent={true} opacity={0} />
