@@ -55,10 +55,10 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 
 const Scene = ({ scrollFactor }) => {
   const logoRef = useRef();
-  const { scene } = useGLTF('/logo.gltf');
+  const { scene } = useGLTF('\logo.gltf');
 
   // last iamge will apppear first i.e, image8.jpg
-  const textures = useTexture(['/image1.jpg', '/image2.jpg', '/image3.jpg', '/image4.jpg', '/image5.jpg', '/image6.jpg', '/image7.jpg', '/image8.jpg']); 
+  const textures = useTexture(['\image1.jpg', '\image2.jpg', '\image3.jpg', '\image4.jpg', '\image5.jpg', '\image6.jpg', '\image7.jpg', '\image8.jpg']); 
   const urls = [
     'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55', // last image on the caraousel
     'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
@@ -72,7 +72,7 @@ const Scene = ({ scrollFactor }) => {
   const { camera } = useThree();
 
   const adjustLogoScale = () => {
-    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 530);
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 550);
     if (logoRef.current) {
       logoRef.current.scale.set(scaleFactor * 30, scaleFactor * 30, scaleFactor * 30);
     }
