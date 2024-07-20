@@ -46,7 +46,7 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
   });
 
   return (
-    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} onPointerDown={handleClick}>
+    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} >
       <planeGeometry args={[1.3, 1]} />
       <meshBasicMaterial map={texture} transparent={true} opacity={0} />
     </mesh>
