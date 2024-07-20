@@ -160,12 +160,12 @@ const HeroSection = () => {
         className="right"
         priority={true}
       /> */}
-      <Image
+      {/* <Image
         src={Podium}
         alt="Podium"
         className="position-fixed bottom-0 start-50 translate-middle-x"
         priority={true}
-      />
+      /> */}
       <div className="carousel-text text-white ms-4">
         <h4 >WELCOME TO SJ</h4>
         <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
