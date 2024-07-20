@@ -141,7 +141,7 @@ const HeroSection = () => {
   return (
     <div style={{ height: '200vh', overflowY: 'scroll', backgroundImage: 'url("/path/to/background.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Canvas
-        style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
+        style={{ display: 'block', position: 'fixed', top: 0, left: 0, zindex: 1000 }}
         onScroll={(e) => handleScroll(e)}
       >
         <Scene scrollFactor={scrollFactor} />
