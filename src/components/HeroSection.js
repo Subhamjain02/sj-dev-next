@@ -72,7 +72,7 @@ const Scene = ({ scrollFactor }) => {
   const { camera } = useThree();
 
   const adjustLogoScale = () => {
-    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 500);
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 530);
     if (logoRef.current) {
       logoRef.current.scale.set(scaleFactor * 30, scaleFactor * 30, scaleFactor * 30);
     }
@@ -139,7 +139,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div style={{ height: '200vh', overflowY: 'scroll', backgroundImage: 'url("/path/to/background.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div style={{ height: '200vh', overflowY: 'scroll', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
         onScroll={(e) => handleScroll(e)}
@@ -166,7 +166,7 @@ const HeroSection = () => {
         className="position-fixed bottom-0 start-50 translate-middle-x"
         priority={true}
       />
-      <div className="carousel-text text-white ms-4">
+      <div className="carousel-text text-white ms-4 text-wrap">
         <h4 >WELCOME TO SJ</h4>
         <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
       </div>
