@@ -131,17 +131,15 @@ const HeroSection = () => {
       setScrollFactor(window.scrollY / (maxScroll * 0.8));
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+   
   }, []);
 
   return (
     <div style={{ height: '200vh', overflowY: 'scroll', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Canvas
-        style={{ display: 'block', position: 'fixed', top: 0, left: 0, zIndex: 100 }}
+        style={{ display: 'block', position: 'fixed', top: 0, left: 0}}
         onScroll={(e) => handleScroll(e)}
       >
         <Scene scrollFactor={scrollFactor} />
