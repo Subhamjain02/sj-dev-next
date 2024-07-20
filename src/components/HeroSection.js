@@ -9,7 +9,7 @@ import Right from '../../public/right.svg';
 import Podium from '../../public/podium.png';
 import './HeroSection.css';
 
-const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount }) => {
+const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount, url }) => {
   const ref = useRef();
 
   const adjustImageProperties = (image, transitionFactor) => {
@@ -17,6 +17,12 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
     image.material.opacity = opacityFactor;
     image.material.transparent = true;
   };
+
+  const handleClick = () => {
+    window.open(url, '_blank');
+  };
+
+
 
   useFrame(() => {
     const x = radius * Math.cos((scrollFactor + index * (1 / imageCount)) * Math.PI * 2);
@@ -35,10 +41,12 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
     const finalTransitionFactor = transitionFactor * angleFactor;
 
     adjustImageProperties(ref.current, finalTransitionFactor);
+    // ref.current.renderOrder = ref.current.position.z;
+
   });
 
   return (
-    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]}>
+    <mesh ref={ref} position={[radius * Math.cos(angle), 0.5 * Math.sin(angle), radius * Math.sin(angle)]} onClick={handleClick}>
       <planeGeometry args={[1.3, 1]} />
       <meshBasicMaterial map={texture} transparent={true} opacity={0} />
     </mesh>
@@ -48,13 +56,25 @@ const CarouselImage = ({ texture, angle, radius, index, scrollFactor, imageCount
 const Scene = ({ scrollFactor }) => {
   const logoRef = useRef();
   const { scene } = useGLTF('\logo.gltf');
-  const texture = useTexture('\image2.jpg');
+
+  // last iamge will apppear first i.e, image8.jpg
+  const textures = useTexture(['\image1.jpg', '\image2.jpg', '\image3.jpg', '\image4.jpg', '\image5.jpg', '\image6.jpg', '\image7.jpg', '\image8.jpg']); 
+  const urls = [
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55', // last image on the caraousel
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
+    'https://www.youtube.com/watch?v=4DVDFxiZKCg' // 1st image on the caraousel
+  ];
   const { camera } = useThree();
 
   const adjustLogoScale = () => {
-    const scaleFactor = Math.min(window.innerWidth, window.innerHeight/500) ;
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 550);
     if (logoRef.current) {
-      logoRef.current.scale.set(scaleFactor*30 , scaleFactor*30 , scaleFactor*30 );
+      logoRef.current.scale.set(scaleFactor * 30, scaleFactor * 30, scaleFactor * 30);
     }
   };
 
@@ -81,7 +101,7 @@ const Scene = ({ scrollFactor }) => {
       <Suspense fallback={null}>
         <primitive object={scene} ref={logoRef} position={[0, 0, 0]} scale={[30, 30, 30]} />
       </Suspense>
-      {Array.from({ length: 8 }).map((_, index) => (
+      {textures.map((texture, index) => (
         <CarouselImage
           key={index}
           texture={texture}
@@ -90,6 +110,7 @@ const Scene = ({ scrollFactor }) => {
           index={index}
           scrollFactor={scrollFactor}
           imageCount={8}
+          url={urls[index]}
         />
       ))}
       <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
@@ -107,24 +128,21 @@ const HeroSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollFactor(window.scrollY / maxScroll);
+      setScrollFactor(window.scrollY / (maxScroll * 0.8));
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // return () => {
-    //   window.removeEventListener('scroll', handleScroll);
-    // };
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
-    <div style={{ height: '200vh', overflowY: 'scroll' }}>
+    <div style={{ height: '200vh', overflowY: 'scroll', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Canvas
         style={{ display: 'block', position: 'fixed', top: 0, left: 0 }}
         onScroll={(e) => handleScroll(e)}
-        // onCreated={({ gl }) => {
-        //   gl.setClearColor('#71A274');
-        // }}
       >
         <Scene scrollFactor={scrollFactor} />
       </Canvas>
@@ -135,7 +153,6 @@ const HeroSection = () => {
         className="left"
         priority={true}
       />
-      
       <Image
         src={Right}
         alt="Right Bottom"
@@ -143,15 +160,15 @@ const HeroSection = () => {
         className="right"
         priority={true}
       /> */}
-      {/* <Image
+      <Image
         src={Podium}
         alt="Podium"
         className="position-fixed bottom-0 start-50 translate-middle-x"
         priority={true}
-      /> */}
-      <div className="position-absolute top-50 start-50 translate-middle text-white text-wrap ">
-      <h4>Welcome To SJ</h4>
-      <p className='w-75'> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius  </p>
+      />
+      <div className="carousel-text text-white ms-4 text-wrap">
+        <h4 >WELCOME TO SJ</h4>
+        <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
       </div>
     </div>
   );
