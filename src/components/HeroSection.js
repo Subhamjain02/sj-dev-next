@@ -143,12 +143,12 @@ const HeroSection = () => {
         className="right"
         priority={true}
       /> */}
-      <Image
+      {/* <Image
         src={Podium}
         alt="Podium"
         className="position-fixed bottom-0 start-50 translate-middle-x"
         priority={true}
-      />
+      /> */}
       <div className="position-absolute top-50 start-50 translate-middle text-white text-wrap ">
       <h4>Welcome To SJ</h4>
       <p className='w-75'> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius  </p>
