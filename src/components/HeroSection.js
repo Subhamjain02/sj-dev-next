@@ -72,9 +72,9 @@ const Scene = ({ scrollFactor }) => {
   const { camera } = useThree();
 
   const adjustLogoScale = () => {
-    const scaleFactor = Math.min(window.innerWidth, window.innerHeight / 550);
+    const scaleFactor = Math.min(window.innerWidth, window.innerHeight)/150;
     if (logoRef.current) {
-      logoRef.current.scale.set(scaleFactor * 30, scaleFactor * 30, scaleFactor * 30);
+      logoRef.current.scale.set(scaleFactor * 10, scaleFactor * 10, scaleFactor * 10);
     }
   };
 
