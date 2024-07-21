@@ -2,6 +2,10 @@
     background: url('/bg.jpeg') no-repeat center center fixed;
     } */
 
+    .canvas {
+        touch-action: auto !important;
+        }
+
     .carousel-text{
         position: fixed;
         top: 50%;

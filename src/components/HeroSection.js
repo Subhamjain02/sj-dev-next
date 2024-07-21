@@ -139,6 +139,7 @@ const HeroSection = () => {
   return (
     <div style={{ height: '200vh', overflowY: 'scroll', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Canvas
+        className='canvas'
         style={{ display: 'block', position: 'fixed', top: 0, left: 0}}
         onScroll={(e) => handleScroll(e)}
       >
