@@ -58,7 +58,7 @@ const Scene = ({ scrollFactor }) => {
   const { scene } = useGLTF('\logo.gltf');
 
   // last iamge will apppear first i.e, image8.jpg
-  const textures = useTexture(['\image1.jpg', '\image2.jpg', '\image3.jpg', '\image4.jpg', '\image5.jpg', '\image6.jpg', '\image7.jpg', '\image8.jpg']); 
+  const textures = useTexture(['\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg']); 
   const urls = [
     'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55', // last image on the caraousel
     'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
@@ -165,10 +165,12 @@ const HeroSection = () => {
         className="position-fixed bottom-0 start-50 translate-middle-x"
         priority={true}
       />
+      
       <div className="carousel-text text-white ms-4 text-wrap">
         <h4 >WELCOME TO SJ</h4>
         <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
       </div>
+      <small className='position-absolute top-50 start-50 ms-5 '> ↕ <span style={{color:'	#5990BA'}}>Scroll </span> <span className='text-white'> to</span> <span style={{color:'	#60B38F'}}>  view </span></small>
     </div>
   );
 };
