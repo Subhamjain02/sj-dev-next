@@ -168,7 +168,7 @@ const HeroSection = () => {
       
       <div className="carousel-text text-white ms-4 text-wrap">
         <h4 >WELCOME TO SJ</h4>
-        <p className='para'> Lorem ipsum dolor sit amet, consectetur adipiscing el  </p>
+        <p className='para'> This is a demonstration of Three.js. </p>
       </div>
       <small className='position-absolute top-50 start-50 ms-5 '> ↕ <span style={{color:'	#5990BA'}}>Scroll </span> <span className='text-white'> to</span> <span style={{color:'	#60B38F'}}>  view </span></small>
     </div>
