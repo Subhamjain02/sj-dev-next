@@ -58,7 +58,7 @@ const Scene = ({ scrollFactor }) => {
   const { scene } = useGLTF('\logo.gltf');
 
   // last iamge will apppear first i.e, image8.jpg
-  const textures = useTexture(['\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg', '\image1.jpg']); 
+  const textures = useTexture(['\image1.jpg', '\image2.jpg', '\image3.jpg', '\image4.jpg', '\image1.jpg', '\image2.jpg', '\image3.jpg', '\image4.jpg']); 
   const urls = [
     'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55', // last image on the caraousel
     'https://youtu.be/H58vbez_m4E?si=P-BCmdaA9wTrRN55',
